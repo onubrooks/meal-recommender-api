@@ -14,23 +14,114 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/user/creeate', function (Request $request) {
+/*
+|--------------------------------------------------------------------------
+| MEALS
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/meals', function (Request $request) {
+    return $request->user();
+});
+Route::post('/meals', function (Request $request) {
+    return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| ALLERGIES
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/allergies', function (Request $request) {
+    return $request->user();
+});
+Route::post('/allergies', function (Request $request) {
+    return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| ITEMS
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/items', function (Request $request) {
+    return $request->user();
+});
+Route::post('/items', function (Request $request) {
+    return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| USERS
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/users', function (Request $request) {
+    return $request->user();
+});
+Route::post('/users', function (Request $request) {
     return $request->user();
 });
 Route::middleware('auth:api')->group(function () {
-    Route::get('/user', function (Request $request) {
+    Route::get('/users/allergies', function (Request $request) {
         return $request->user();
     });
-    Route::get('/user/allergies', function (Request $request) {
+    Route::post('/users/allergies', function (Request $request) {
         return $request->user();
     });
-    Route::post('/user/allergies', function (Request $request) {
-        return $request->user();
-    });
-    Route::post('/user/recommendations', function (Request $request) {
+    Route::post('/users/recommendations', function (Request $request) {
         return $request->user();
     });
 });
-Route::post('/system/recommendations', function (Request $request) {
+
+/*
+|--------------------------------------------------------------------------
+| SYSTEM
+|--------------------------------------------------------------------------
+|
+*/
+Route::post('/recommendations', function (Request $request) {
+    return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| MEALS => ITEMS
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/meal-items', function (Request $request) {
+    return $request->user();
+});
+Route::post('/meal-items', function (Request $request) {
+    return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| ITEMS => ALLERGIES
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/item-allergies', function (Request $request) {
+    return $request->user();
+});
+Route::post('/item-allergies', function (Request $request) {
+    return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| USER => ALLERGIES
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/user-allergies', function (Request $request) {
+    return $request->user();
+});
+Route::post('/user-allergies', function (Request $request) {
     return $request->user();
 });
