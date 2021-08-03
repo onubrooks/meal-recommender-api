@@ -3,6 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Meal;
+use App\Models\User;
+use App\Models\Allergy;
+use App\Models\Item;
+use App\Models\MealItem;
+use App\Models\ItemAllergy;
+use App\Models\UserAllergy;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,10 +29,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/meals', function (Request $request) {
-    return $request->user();
+    return Meal::paginate();
 });
 Route::post('/meals', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'name' => ['required', 'string'],
+        'description' => ['required', 'string'],
+    ]);
+    return Meal::updateOrCreate(
+        ['name' => $request->name],
+        ['name' => $request->name, 'description' => $request->description]
+    );
 });
 
 /*
@@ -34,10 +49,17 @@ Route::post('/meals', function (Request $request) {
 |
 */
 Route::get('/allergies', function (Request $request) {
-    return $request->user();
+    return Allergy::paginate();
 });
 Route::post('/allergies', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'name' => ['required', 'string'],
+        'description' => ['required', 'string'],
+    ]);
+    return Allergy::updateOrCreate(
+        ['name' => $request->name],
+        ['name' => $request->name, 'description' => $request->description]
+    );
 });
 
 /*
@@ -47,10 +69,17 @@ Route::post('/allergies', function (Request $request) {
 |
 */
 Route::get('/items', function (Request $request) {
-    return $request->user();
+    return Item::paginate();
 });
 Route::post('/items', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'name' => ['required', 'string'],
+        'description' => ['required', 'string'],
+    ]);
+    return Item::updateOrCreate(
+        ['name' => $request->name],
+        ['name' => $request->name, 'description' => $request->description]
+    );
 });
 
 /*
@@ -60,18 +89,20 @@ Route::post('/items', function (Request $request) {
 |
 */
 Route::get('/users', function (Request $request) {
-    return $request->user();
+    return User::paginate();
 });
 Route::post('/users', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'name' => ['required', 'string'],
+        'email' => ['required', 'email'],
+        'password' => ['required', 'confirmed'],
+    ]);
+    return User::updateOrCreate(
+        ['email' => $request->email],
+        ['name' => $request->name, 'email' => $request->email, 'password' => bcrypt($request->password)]
+    );
 });
 Route::middleware('auth:api')->group(function () {
-    Route::get('/users/allergies', function (Request $request) {
-        return $request->user();
-    });
-    Route::post('/users/allergies', function (Request $request) {
-        return $request->user();
-    });
     Route::post('/users/recommendations', function (Request $request) {
         return $request->user();
     });
@@ -79,7 +110,7 @@ Route::middleware('auth:api')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| SYSTEM
+| RECOMMEND
 |--------------------------------------------------------------------------
 |
 */
@@ -94,10 +125,21 @@ Route::post('/recommendations', function (Request $request) {
 |
 */
 Route::get('/meal-items', function (Request $request) {
-    return $request->user();
+    return Meal::find($request->meal_id)->items();
 });
 Route::post('/meal-items', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'meal_id' => ['required', 'integer'],
+        'items' => ['required', 'array'],
+    ]);
+    $items = collect($request->items);
+    foreach ($items as $item) {
+        MealItem::updateOrCreate(
+            ['meal_id' => $request->meal_id, 'item_id', $item],
+            ['meal_id' => $request->meal_id, 'item_id', $item],
+        );
+    }
+    return Meal::find($request->meal_id)->items();
 });
 
 /*
@@ -107,10 +149,21 @@ Route::post('/meal-items', function (Request $request) {
 |
 */
 Route::get('/item-allergies', function (Request $request) {
-    return $request->user();
+    return Item::find($request->item_id)->allergies();
 });
 Route::post('/item-allergies', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'item_id' => ['required', 'integer'],
+        'allergies' => ['required', 'array'],
+    ]);
+    $allergies = collect($request->allergies);
+    foreach ($allergies as $allergy) {
+        ItemAllergy::updateOrCreate(
+            ['item_id' => $request->item_id, 'allergy_id', $allergy],
+            ['item_id' => $request->item_id, 'allergy_id', $allergy],
+        );
+    }
+    return Item::find($request->item_id)->allergies();
 });
 
 /*
@@ -120,8 +173,19 @@ Route::post('/item-allergies', function (Request $request) {
 |
 */
 Route::get('/user-allergies', function (Request $request) {
-    return $request->user();
+    return User::find($request->item_id)->allergies();
 });
 Route::post('/user-allergies', function (Request $request) {
-    return $request->user();
+    $request->validate([
+        'user_id' => ['required', 'integer'],
+        'allergies' => ['required', 'array'],
+    ]);
+    $allergies = collect($request->allergies);
+    foreach ($allergies as $allergy) {
+        UserAllergy::updateOrCreate(
+            ['user_id' => $request->user_id, 'allergy_id', $allergy],
+            ['user_id' => $request->user_id, 'allergy_id', $allergy],
+        );
+    }
+    return User::find($request->item_id)->allergies();
 });

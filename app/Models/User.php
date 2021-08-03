@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The allergies that belong to the user.
+     */
+    public function allergies()
+    {
+        return $this->belongsToMany(Allergy::class, 'user_allergies');
+    }
 }
