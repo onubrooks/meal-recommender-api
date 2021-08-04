@@ -3,13 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Meal;
-use App\Models\User;
-use App\Models\Allergy;
-use App\Models\Item;
-use App\Models\MealItem;
-use App\Models\ItemAllergy;
-use App\Models\UserAllergy;
+use App\Repository\DataRepository;
+use App\Repository\LogicRepository;
+use App\Repository\Helpers;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +37,10 @@ use App\Models\UserAllergy;
  * @responseField data List of meals queried from the API.
  */
 Route::get('/meals', function (Request $request) {
-    return Meal::paginate();
+    $paginate = $request->paginate ?? false;
+    $data = DataRepository::fetchMeals($paginate);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /**
@@ -59,10 +58,9 @@ Route::post('/meals', function (Request $request) {
         'name' => ['required', 'string'],
         'description' => ['required', 'string'],
     ]);
-    return Meal::updateOrCreate(
-        ['name' => $request->name],
-        ['name' => $request->name, 'description' => $request->description]
-    );
+    $data = DataRepository::saveMeal($request->all());
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /*
@@ -84,7 +82,10 @@ Route::post('/meals', function (Request $request) {
  * @responseField data List of allergies queried from the API.
  */
 Route::get('/allergies', function (Request $request) {
-    return Allergy::paginate();
+    $paginate = $request->paginate ?? false;
+    $data = DataRepository::fetchAllergies($paginate);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /**
@@ -102,10 +103,10 @@ Route::post('/allergies', function (Request $request) {
         'name' => ['required', 'string'],
         'description' => ['required', 'string'],
     ]);
-    return Allergy::updateOrCreate(
-        ['name' => $request->name],
-        ['name' => $request->name, 'description' => $request->description]
-    );
+
+    $data = DataRepository::saveAllergy($request->all());
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /*
@@ -127,7 +128,10 @@ Route::post('/allergies', function (Request $request) {
  * @responseField data List of items queried from the API.
  */
 Route::get('/items', function (Request $request) {
-    return Item::paginate();
+    $paginate = $request->paginate ?? false;
+    $data = DataRepository::fetchItems($paginate);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /**
@@ -145,10 +149,9 @@ Route::post('/items', function (Request $request) {
         'name' => ['required', 'string'],
         'description' => ['required', 'string'],
     ]);
-    return Item::updateOrCreate(
-        ['name' => $request->name],
-        ['name' => $request->name, 'description' => $request->description]
-    );
+    $data = DataRepository::saveItem($request->all());
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /*
@@ -170,7 +173,10 @@ Route::post('/items', function (Request $request) {
  * @responseField data List of users queried from the API.
  */
 Route::get('/users', function (Request $request) {
-    return User::paginate();
+    $paginate = $request->paginate ?? false;
+    $data = DataRepository::fetchUsers($paginate);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /**
@@ -189,10 +195,10 @@ Route::post('/users', function (Request $request) {
         'email' => ['required', 'email'],
         'password' => ['required', 'confirmed'],
     ]);
-    return User::updateOrCreate(
-        ['email' => $request->email],
-        ['name' => $request->name, 'email' => $request->email, 'password' => bcrypt($request->password)]
-    );
+
+    $data = DataRepository::saveUser($request->all());
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -211,7 +217,9 @@ Route::middleware('auth:api')->group(function () {
         $request->validate([
             'user_id' => ['required', 'integer'],
         ]);
-        return $request->user();
+        $data = LogicRepository::recommendSingleUser($request->user_id);
+
+        return Helpers::sendSuccessResponse($data);
     });
 });
 
@@ -236,7 +244,9 @@ Route::post('/recommend', function (Request $request) {
     $request->validate([
         'users' => ['required', 'array'],
     ]);
-    return $request->user();
+    $data = LogicRepository::recommendMultipleUsers($request->users);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /*
@@ -258,7 +268,9 @@ Route::post('/recommend', function (Request $request) {
  * @responseField data List of meal-items queried from the API.
  */
 Route::get('/meal-items', function (Request $request) {
-    return Meal::find($request->meal_id)->items();
+    $data = DataRepository::fetchMealItems($request->meal_id);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /**
@@ -276,14 +288,9 @@ Route::post('/meal-items', function (Request $request) {
         'meal_id' => ['required', 'integer'],
         'items' => ['required', 'array'],
     ]);
-    $items = collect($request->items);
-    foreach ($items as $item) {
-        MealItem::updateOrCreate(
-            ['meal_id' => $request->meal_id, 'item_id', $item],
-            ['meal_id' => $request->meal_id, 'item_id', $item],
-        );
-    }
-    return Meal::find($request->meal_id)->items();
+    $data = DataRepository::saveMealItem($request->items, $request->meal_id);
+
+    return Helpers::sendSuccessResponse($data);
 });
 
 /*

@@ -16,4 +16,12 @@ class Item extends Model
     {
         return $this->belongsToMany(Allergy::class, 'item_allergies');
     }
+
+    /**
+     * The allergies that belong to the item.
+     */
+    public function meals()
+    {
+        return $this->belongsToMany(Meal::class, 'meal_items');
+    }
 }
