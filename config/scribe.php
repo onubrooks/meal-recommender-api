@@ -9,17 +9,17 @@ return [
     /*
      * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
      */
-    'title' => null,
+    'title' => "Onubrooks' Meal Recommender API",
 
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
      */
-    'description' => '',
+    'description' => 'A fast and simple API that supplies meal recommendations for users with allergies. The API supports meals, items, users and allergies.',
 
     /*
      * The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url').
      */
-    'base_url' => null,
+    'base_url' => "https://meal-recommender-api.herokuapp.com",
 
     /*
      * Tell Scribe what routes to generate documentation for.

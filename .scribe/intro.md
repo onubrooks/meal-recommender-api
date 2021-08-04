@@ -1,6 +1,6 @@
 # Introduction
 
-
+A fast and simple API that supplies meal recommendations for users with allergies. The API supports meals, items, users and allergies.
 
 This documentation aims to provide all the information you need to work with our API.
 
@@ -10,5 +10,5 @@ You can switch the language used with the tabs at the top right (or from the nav
 > Base URL
 
 ```yaml
-http://localhost
+https://meal-recommender-api.herokuapp.com
 ```

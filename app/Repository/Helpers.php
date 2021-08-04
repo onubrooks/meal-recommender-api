@@ -20,7 +20,7 @@ class Helpers
      * @param int $code
      * @return JsonResponse
      */
-    protected function errorResponse($message, $errors = [], $code = 400)
+    protected function errorResponse($message = 'action failed', $errors = [], $code = 400)
     {
         return response()->json([
             'status' => 'error',
@@ -37,7 +37,7 @@ class Helpers
      * @param  int  $code
      * @return JsonResponse
      */
-    public static function sendSuccessResponse($data = '', $message = '', $code = 200)
+    public static function sendSuccessResponse($data = '', $message = 'action successful', $code = 200)
     {
         $response = ['status' => 'success'];
 

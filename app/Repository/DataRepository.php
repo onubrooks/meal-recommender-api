@@ -31,8 +31,8 @@ class DataRepository{
     public static function saveMeal($payload)
     {
         return Meal::updateOrCreate(
-            ['name' => $payload->name],
-            ['name' => $payload->name, 'description' => $payload->description]
+            ['name' => $payload['name']],
+            ['name' => $payload['name'], 'description' => $payload['description']]
         );
     }
 
@@ -47,8 +47,8 @@ class DataRepository{
     public static function saveAllergy($payload)
     {
         return Allergy::updateOrCreate(
-            ['name' => $payload->name],
-            ['name' => $payload->name, 'description' => $payload->description]
+            ['name' => $payload['name']],
+            ['name' => $payload['name'], 'description' => $payload['description']]
         );
     }
 
@@ -63,8 +63,8 @@ class DataRepository{
     public static function saveItem($payload)
     {
         return Item::updateOrCreate(
-            ['name' => $payload->name],
-            ['name' => $payload->name, 'description' => $payload->description]
+            ['name' => $payload['name']],
+            ['name' => $payload['name'], 'description' => $payload['description']]
         );
     }
 
@@ -79,8 +79,8 @@ class DataRepository{
     public static function saveUser($payload)
     {
         return User::updateOrCreate(
-            ['email' => $payload->email],
-            ['name' => $payload->name, 'email' => $payload->email, 'password' => bcrypt($payload->password)]
+            ['email' => $payload['email']],
+            ['name' => $payload['name'], 'email' => $payload['email'], 'password' => bcrypt($payload['password'])]
         );
     }
 
@@ -89,14 +89,46 @@ class DataRepository{
         return Meal::find($meal_id)->items();
     }
 
-    public static function saveMealItem($items, $meal_id)
+    public static function saveMealItems($items, $meal_id)
     {
         foreach ($items as $item) {
             MealItem::updateOrCreate(
-                ['meal_id' => $meal_id, 'item_id', $item],
-                ['meal_id' => $meal_id, 'item_id', $item],
+                ['meal_id' => $meal_id, 'item_id' => $item],
+                ['meal_id' => $meal_id, 'item_id' => $item['item_id'], 'type' => $item['type']],
             );
         }
-        return Meal::find($meal_id)->items();
+        return Meal::with('items')->find($meal_id);
+    }
+
+    public static function fetchItemAllergies($item_id)
+    {
+        return Item::find($item_id)->allergies();
+    }
+
+    public static function saveItemAllergies($allergies, $item_id)
+    {
+        foreach ($allergies as $allergy) {
+            ItemAllergy::updateOrCreate(
+                ['item_id' => $item_id, 'allergy_id' => $allergy],
+                ['item_id' => $item_id, 'allergy_id' => $allergy],
+            );
+        }
+        return Item::find($item_id)->allergies();
+    }
+
+    public static function fetchUserAllergies($user_id)
+    {
+        return User::find($user_id)->allergies();
+    }
+
+    public static function saveUserAllergies($allergies, $user_id)
+    {
+        foreach ($allergies as $allergy) {
+            UserAllergy::updateOrCreate(
+                ['user_id' => $user_id, 'allergy_id' => $allergy],
+                ['user_id' => $user_id, 'allergy_id' => $allergy],
+            );
+        }
+        return User::find($user_id)->allergies();
     }
 }

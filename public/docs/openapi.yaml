@@ -1,12 +1,1621 @@
 openapi: 3.0.3
 info:
-  title: Laravel
-  description: ''
+  title: 'Onubrooks'' Meal Recommender API'
+  description: 'A fast and simple API that supplies meal recommendations for users with allergies. The API supports meals, items, users and allergies.'
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
-paths: []
+    url: 'https://meal-recommender-api.herokuapp.com'
+paths:
+  /api/recommend:
+    post:
+      summary: 'Fetch Multiple Users Recommendations'
+      description: "Fetch all recommended meals for a list of users' based on their allergies. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+  /api/recommend/user:
+    post:
+      summary: 'Fetch User Recommendations'
+      description: "Fetch a list of a given users' recommended meals based on their allergies. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+  /api/meals:
+    post:
+      summary: 'Add/Create/Update a Meal'
+      description: 'Create or update a meal record, supplying the name and description to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+    get:
+      summary: 'Fetch Meals'
+      description: "Fetch a paginated list of all the meals in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Call to undefined method Illuminate\Database\Eloquent\Builder::all()'
+                  exception: BadMethodCallException
+                  file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php'
+                  line: 50
+                  trace:
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php'
+                      line: 36
+                      function: throwBadMethodCallException
+                      class: Illuminate\Database\Eloquent\Builder
+                      type: '::'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php'
+                      line: 1620
+                      function: forwardCallTo
+                      class: Illuminate\Database\Eloquent\Builder
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\app\Repository\DataRepository.php'
+                      line: 28
+                      function: __call
+                      class: Illuminate\Database\Eloquent\Builder
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\app\Http\Controllers\DataController.php'
+                      line: 26
+                      function: fetchMeals
+                      class: App\Repository\DataRepository
+                      type: '::'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Controller.php'
+                      line: 54
+                      function: fetchMeals
+                      class: App\Http\Controllers\DataController
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php'
+                      line: 45
+                      function: callAction
+                      class: Illuminate\Routing\Controller
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Route.php'
+                      line: 254
+                      function: dispatch
+                      class: Illuminate\Routing\ControllerDispatcher
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Route.php'
+                      line: 197
+                      function: runController
+                      class: Illuminate\Routing\Route
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 695
+                      function: run
+                      class: Illuminate\Routing\Route
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Illuminate\Routing\{closure}'
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php'
+                      line: 50
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Routing\Middleware\SubstituteBindings
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                      line: 127
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                      line: 103
+                      function: handleRequest
+                      class: Illuminate\Routing\Middleware\ThrottleRequests
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                      line: 55
+                      function: handleRequestUsingNamedLimiter
+                      class: Illuminate\Routing\Middleware\ThrottleRequests
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Routing\Middleware\ThrottleRequests
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 697
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 672
+                      function: runRouteWithinStack
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 636
+                      function: runRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 625
+                      function: dispatchToRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 166
+                      function: dispatch
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Illuminate\Foundation\Http\{closure}'
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                      line: 31
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                      line: 40
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                      line: 27
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                      line: 86
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                      line: 52
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Fruitcake\Cors\HandleCors
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\fideloper\proxy\src\TrustProxies.php'
+                      line: 57
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Fideloper\Proxy\TrustProxies
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 141
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 110
+                      function: sendRequestThroughRouter
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 287
+                      function: handle
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 275
+                      function: callLaravelOrLumenRoute
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 86
+                      function: makeApiCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 44
+                      function: makeResponseCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 34
+                      function: makeResponseCallIfConditionsPass
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 225
+                      function: __invoke
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 182
+                      function: iterateThroughStrategies
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 116
+                      function: fetchResponses
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 118
+                      function: processRoute
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 75
+                      function: extractEndpointsInfoFromLaravelApp
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 51
+                      function: extractEndpointsInfoAndWriteToDisk
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                      line: 39
+                      function: get
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 36
+                      function: handle
+                      class: Knuckles\Scribe\Commands\GenerateDocumentation
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                      line: 40
+                      function: 'Illuminate\Container\{closure}'
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 93
+                      function: unwrapIfClosure
+                      class: Illuminate\Container\Util
+                      type: '::'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 37
+                      function: callBoundMethod
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                      line: 651
+                      function: call
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 136
+                      function: call
+                      class: Illuminate\Container\Container
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Command\Command.php'
+                      line: 299
+                      function: execute
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 121
+                      function: run
+                      class: Symfony\Component\Console\Command\Command
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Application.php'
+                      line: 978
+                      function: run
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Application.php'
+                      line: 295
+                      function: doRunCommand
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Application.php'
+                      line: 167
+                      function: doRun
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                      line: 92
+                      function: run
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                      line: 129
+                      function: run
+                      class: Illuminate\Console\Application
+                      type: '->'
+                    -
+                      file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\artisan'
+                      line: 37
+                      function: handle
+                      class: Illuminate\Foundation\Console\Kernel
+                      type: '->'
+                properties:
+                  message:
+                    type: string
+                    example: 'Call to undefined method Illuminate\Database\Eloquent\Builder::all()'
+                  exception:
+                    type: string
+                    example: BadMethodCallException
+                  file:
+                    type: string
+                    example: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php'
+                  line:
+                    type: integer
+                    example: 50
+                  trace:
+                    type: array
+                    example:
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Support\Traits\ForwardsCalls.php'
+                        line: 36
+                        function: throwBadMethodCallException
+                        class: Illuminate\Database\Eloquent\Builder
+                        type: '::'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Database\Eloquent\Builder.php'
+                        line: 1620
+                        function: forwardCallTo
+                        class: Illuminate\Database\Eloquent\Builder
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\app\Repository\DataRepository.php'
+                        line: 28
+                        function: __call
+                        class: Illuminate\Database\Eloquent\Builder
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\app\Http\Controllers\DataController.php'
+                        line: 26
+                        function: fetchMeals
+                        class: App\Repository\DataRepository
+                        type: '::'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Controller.php'
+                        line: 54
+                        function: fetchMeals
+                        class: App\Http\Controllers\DataController
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php'
+                        line: 45
+                        function: callAction
+                        class: Illuminate\Routing\Controller
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Route.php'
+                        line: 254
+                        function: dispatch
+                        class: Illuminate\Routing\ControllerDispatcher
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Route.php'
+                        line: 197
+                        function: runController
+                        class: Illuminate\Routing\Route
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 695
+                        function: run
+                        class: Illuminate\Routing\Route
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Illuminate\Routing\{closure}'
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php'
+                        line: 50
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Routing\Middleware\SubstituteBindings
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                        line: 127
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                        line: 103
+                        function: handleRequest
+                        class: Illuminate\Routing\Middleware\ThrottleRequests
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                        line: 55
+                        function: handleRequestUsingNamedLimiter
+                        class: Illuminate\Routing\Middleware\ThrottleRequests
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Routing\Middleware\ThrottleRequests
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 697
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 672
+                        function: runRouteWithinStack
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 636
+                        function: runRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 625
+                        function: dispatchToRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 166
+                        function: dispatch
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Illuminate\Foundation\Http\{closure}'
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                        line: 31
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                        line: 40
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                        line: 27
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                        line: 86
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                        line: 52
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Fruitcake\Cors\HandleCors
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\fideloper\proxy\src\TrustProxies.php'
+                        line: 57
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Fideloper\Proxy\TrustProxies
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 141
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 110
+                        function: sendRequestThroughRouter
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 287
+                        function: handle
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 275
+                        function: callLaravelOrLumenRoute
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 86
+                        function: makeApiCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 44
+                        function: makeResponseCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 34
+                        function: makeResponseCallIfConditionsPass
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 225
+                        function: __invoke
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 182
+                        function: iterateThroughStrategies
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 116
+                        function: fetchResponses
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 118
+                        function: processRoute
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 75
+                        function: extractEndpointsInfoFromLaravelApp
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 51
+                        function: extractEndpointsInfoAndWriteToDisk
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                        line: 39
+                        function: get
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 36
+                        function: handle
+                        class: Knuckles\Scribe\Commands\GenerateDocumentation
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                        line: 40
+                        function: 'Illuminate\Container\{closure}'
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 93
+                        function: unwrapIfClosure
+                        class: Illuminate\Container\Util
+                        type: '::'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 37
+                        function: callBoundMethod
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                        line: 651
+                        function: call
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 136
+                        function: call
+                        class: Illuminate\Container\Container
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Command\Command.php'
+                        line: 299
+                        function: execute
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 121
+                        function: run
+                        class: Symfony\Component\Console\Command\Command
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Application.php'
+                        line: 978
+                        function: run
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Application.php'
+                        line: 295
+                        function: doRunCommand
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\symfony\console\Application.php'
+                        line: 167
+                        function: doRun
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                        line: 92
+                        function: run
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                        line: 129
+                        function: run
+                        class: Illuminate\Console\Application
+                        type: '->'
+                      -
+                        file: 'C:\Users\onu\Desktop\Artinict\software library\meal-recommendation-api\artisan'
+                        line: 37
+                        function: handle
+                        class: Illuminate\Foundation\Console\Kernel
+                        type: '->'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+  /api/allergies:
+    post:
+      summary: 'Add/Create/Update an Allergy'
+      description: 'Create or update an allergy record, supplying the name and description to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+    get:
+      summary: 'Fetch Allergies'
+      description: "Fetch a paginated list of all the allergies in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'fetch allergies successful'
+                  data:
+                    -
+                      id: 1
+                      name: 'Nut Allergy'
+                      description: 'Allergic to nuts'
+                      created_at: '2021-08-04T22:51:03.000000Z'
+                      updated_at: '2021-08-04T22:51:03.000000Z'
+                    -
+                      id: 2
+                      name: 'ShellFish Allergy'
+                      description: 'Allergic to ShellFish'
+                      created_at: '2021-08-04T22:51:18.000000Z'
+                      updated_at: '2021-08-04T22:51:18.000000Z'
+                    -
+                      id: 3
+                      name: 'SeaFood Allergy'
+                      description: 'Allergic to SeaFood'
+                      created_at: '2021-08-04T22:51:36.000000Z'
+                      updated_at: '2021-08-04T22:51:36.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'fetch allergies successful'
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Nut Allergy'
+                        description: 'Allergic to nuts'
+                        created_at: '2021-08-04T22:51:03.000000Z'
+                        updated_at: '2021-08-04T22:51:03.000000Z'
+                      -
+                        id: 2
+                        name: 'ShellFish Allergy'
+                        description: 'Allergic to ShellFish'
+                        created_at: '2021-08-04T22:51:18.000000Z'
+                        updated_at: '2021-08-04T22:51:18.000000Z'
+                      -
+                        id: 3
+                        name: 'SeaFood Allergy'
+                        description: 'Allergic to SeaFood'
+                        created_at: '2021-08-04T22:51:36.000000Z'
+                        updated_at: '2021-08-04T22:51:36.000000Z'
+                    description: 'List of allergies queried from the API.'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+  /api/items:
+    post:
+      summary: 'Add/Create/Update an Item'
+      description: 'Create or update an item record, supplying the name and description to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+    get:
+      summary: 'Fetch Items'
+      description: "Fetch a paginated list of all the items in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'fetch items successful'
+                  data:
+                    -
+                      id: 1
+                      name: Ewedu
+                      description: 'Ewedu soup'
+                      created_at: '2021-08-04T22:45:11.000000Z'
+                      updated_at: '2021-08-04T22:45:11.000000Z'
+                    -
+                      id: 2
+                      name: 'Pounded Yam'
+                      description: 'Yam that is pounded'
+                      created_at: '2021-08-04T22:45:30.000000Z'
+                      updated_at: '2021-08-04T22:45:30.000000Z'
+                    -
+                      id: 3
+                      name: Fufu
+                      description: 'exotic swallow'
+                      created_at: '2021-08-04T22:45:46.000000Z'
+                      updated_at: '2021-08-04T22:45:46.000000Z'
+                    -
+                      id: 4
+                      name: Akpu
+                      description: 'exotic swallow with a spice to it'
+                      created_at: '2021-08-04T22:45:59.000000Z'
+                      updated_at: '2021-08-04T22:45:59.000000Z'
+                    -
+                      id: 5
+                      name: 'Oha soup'
+                      description: 'exotic soup with a bling to it'
+                      created_at: '2021-08-04T22:46:16.000000Z'
+                      updated_at: '2021-08-04T22:46:16.000000Z'
+                    -
+                      id: 6
+                      name: 'Edikaikong soup'
+                      description: 'exotic soup everyone wants but cant have'
+                      created_at: '2021-08-04T22:46:39.000000Z'
+                      updated_at: '2021-08-04T22:46:39.000000Z'
+                    -
+                      id: 7
+                      name: 'Boiled rice'
+                      description: 'rice grain boiled'
+                      created_at: '2021-08-04T22:47:01.000000Z'
+                      updated_at: '2021-08-04T22:47:01.000000Z'
+                    -
+                      id: 8
+                      name: 'Fried rice'
+                      description: 'rice grain fried'
+                      created_at: '2021-08-04T22:47:10.000000Z'
+                      updated_at: '2021-08-04T22:47:10.000000Z'
+                    -
+                      id: 9
+                      name: 'Jollof rice'
+                      description: 'rice grain jollof'
+                      created_at: '2021-08-04T22:47:22.000000Z'
+                      updated_at: '2021-08-04T22:47:22.000000Z'
+                    -
+                      id: 10
+                      name: 'Okra soup'
+                      description: 'delicious soup made with the great okra plant'
+                      created_at: '2021-08-04T22:56:45.000000Z'
+                      updated_at: '2021-08-04T22:56:45.000000Z'
+                    -
+                      id: 11
+                      name: Eba
+                      description: 'delicious swallow'
+                      created_at: '2021-08-04T23:16:05.000000Z'
+                      updated_at: '2021-08-04T23:16:05.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'fetch items successful'
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: Ewedu
+                        description: 'Ewedu soup'
+                        created_at: '2021-08-04T22:45:11.000000Z'
+                        updated_at: '2021-08-04T22:45:11.000000Z'
+                      -
+                        id: 2
+                        name: 'Pounded Yam'
+                        description: 'Yam that is pounded'
+                        created_at: '2021-08-04T22:45:30.000000Z'
+                        updated_at: '2021-08-04T22:45:30.000000Z'
+                      -
+                        id: 3
+                        name: Fufu
+                        description: 'exotic swallow'
+                        created_at: '2021-08-04T22:45:46.000000Z'
+                        updated_at: '2021-08-04T22:45:46.000000Z'
+                      -
+                        id: 4
+                        name: Akpu
+                        description: 'exotic swallow with a spice to it'
+                        created_at: '2021-08-04T22:45:59.000000Z'
+                        updated_at: '2021-08-04T22:45:59.000000Z'
+                      -
+                        id: 5
+                        name: 'Oha soup'
+                        description: 'exotic soup with a bling to it'
+                        created_at: '2021-08-04T22:46:16.000000Z'
+                        updated_at: '2021-08-04T22:46:16.000000Z'
+                      -
+                        id: 6
+                        name: 'Edikaikong soup'
+                        description: 'exotic soup everyone wants but cant have'
+                        created_at: '2021-08-04T22:46:39.000000Z'
+                        updated_at: '2021-08-04T22:46:39.000000Z'
+                      -
+                        id: 7
+                        name: 'Boiled rice'
+                        description: 'rice grain boiled'
+                        created_at: '2021-08-04T22:47:01.000000Z'
+                        updated_at: '2021-08-04T22:47:01.000000Z'
+                      -
+                        id: 8
+                        name: 'Fried rice'
+                        description: 'rice grain fried'
+                        created_at: '2021-08-04T22:47:10.000000Z'
+                        updated_at: '2021-08-04T22:47:10.000000Z'
+                      -
+                        id: 9
+                        name: 'Jollof rice'
+                        description: 'rice grain jollof'
+                        created_at: '2021-08-04T22:47:22.000000Z'
+                        updated_at: '2021-08-04T22:47:22.000000Z'
+                      -
+                        id: 10
+                        name: 'Okra soup'
+                        description: 'delicious soup made with the great okra plant'
+                        created_at: '2021-08-04T22:56:45.000000Z'
+                        updated_at: '2021-08-04T22:56:45.000000Z'
+                      -
+                        id: 11
+                        name: Eba
+                        description: 'delicious swallow'
+                        created_at: '2021-08-04T23:16:05.000000Z'
+                        updated_at: '2021-08-04T23:16:05.000000Z'
+                    description: 'List of items queried from the API.'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+  /api/users:
+    post:
+      summary: 'Add/Create/Update a User'
+      description: 'Create or update a user record, supplying the name, email and password to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+    get:
+      summary: 'Fetch Users'
+      description: "Fetch a paginated list of all the users in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: 'fetch users successful'
+                  data:
+                    -
+                      id: 1
+                      name: 'Brad Pitt'
+                      email: pit@onubrooksapi.com
+                      email_verified_at: null
+                      created_at: '2021-08-04T22:55:02.000000Z'
+                      updated_at: '2021-08-04T22:55:10.000000Z'
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: 'The status of this API (`success` or `error`).'
+                  message:
+                    type: string
+                    example: 'fetch users successful'
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Brad Pitt'
+                        email: pit@onubrooksapi.com
+                        email_verified_at: null
+                        created_at: '2021-08-04T22:55:02.000000Z'
+                        updated_at: '2021-08-04T22:55:10.000000Z'
+                    description: 'List of users queried from the API.'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+  /api/meal-items:
+    get:
+      summary: 'Fetch Meal-Items'
+      description: "Fetch a list of all 'meal-items' in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    meal_id:
+                      - 'The meal id field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    example:
+                      meal_id:
+                        - 'The meal id field is required.'
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Add/Create/Update Meal-Items'
+      description: 'Create or update one or more ''meal-item'' record, supplying the meal_id and a list of items to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+  /api/item-allergies:
+    get:
+      summary: 'Fetch Item-Allergies'
+      description: "Fetch a list of all 'item-allergies' in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    item_id:
+                      - 'The item id field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    example:
+                      item_id:
+                        - 'The item id field is required.'
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Add/Create/Update Item-Allergies'
+      description: 'Create or update one or more ''item-allergies'' record, supplying the item_id and a list of allergies to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
+  /api/user-allergies:
+    get:
+      summary: 'Fetch User-Allergies'
+      description: "Fetch a list of all 'user-allergies' in the recommender. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and an error field."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    user_id:
+                      - 'The user id field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    example:
+                      user_id:
+                        - 'The user id field is required.'
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Add/Create/Update User-Allergies'
+      description: 'Create or update one or more ''user-allergies'' record, supplying the user_id and list of allergies to be saved.'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: '400, Service is down or an unexpected error occurred'
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: .
+      tags:
+        - Endpoints
+      security: []
 components:
   securitySchemes:
     default:
