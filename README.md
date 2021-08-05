@@ -1,6 +1,7 @@
 # Onubrooks' Meal Recommender API
 
 Welcome to the meal recommender API of choice for many across board. This project demonstrates how to search, filter and recommend meals to users based on their allergies (we don't want them reacting in a strange way to our foods, do we?). Users of the API can add, edit and fetch their meals, meal items and allergies.
+This project is live on [Heroku Meal Recommender](https://meal-recommender-api.herokuapp.com).
 
 **Features of the API:**
 
