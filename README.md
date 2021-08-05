@@ -1,62 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Onubrooks' Meal Recommender API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Welcome to the meal recommender API of choice for many across board. This project demonstrates how to search, filter and recommend meals to users based on their allergies (we don't want them reacting in a strange way to our foods, do we?). Users of the API can add, edit and fetch their meals, meal items and allergies.
 
-## About Laravel
+**Features of the API:**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. The system operates on three Allergies:
+    1. Nut Allergy
+    2. ShellFish Allergy
+    3. SeaFood Allergy
+2. Every user on the system is able to pick their allergies (ranging from zero to all the allergies provided by the system).
+3. The system accommodates at least 50 meals (Each meal has a main item & at least 2 side items) at any time (with allergies for these meals)
+4. The system has the ability to recommend meals to users based on their allergies. Every user has the ability to fetch meal recommendations at any time.
+5. The system can also fetch meal recommendations for more than one user at a time.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## How it works
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+A simple API, all you need to do is create one or more users, add their allergies and that's it. Recommendations can then be fetched via POST requests on the API. Below is a sample recommendation for a user with Nut Allergy:
 
-## Learning Laravel
+```json
+{
+    "status": "success",
+    "message": "fetch recommendations successful",
+    "data": {
+        "user": {
+            "id": 1,
+            "name": "Brad Pitt",
+            "email": "pit@onubrooksapi.com"
+        },
+        "recommended_meals": [
+            {
+                "id": 3,
+                "name": "akpu and Ewedu",
+                "description": "special akpu from the eastern part of Nigeria",
+                "items": []
+            },
+            {
+                "id": 4,
+                "name": "pounded yam and Ewedu",
+                "description": "special pounded yam from the southern part of Nigeria",
+                "items": []
+            },
+            {
+                "id": 5,
+                "name": "Eba and Okra",
+                "description": "special garri cake with okra soup",
+                "items": []
+            }
+        ]
+    }
+}
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Project Setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Start by cloning the project using the following command:
 
-## Laravel Sponsors
+`git clone https://github.com/onubrooks/meal-recommender-api.git`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Next install dependencies:
 
-### Premium Partners
+`composer install`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+After installation, if you already have a database setup, you can run migrations as follows:
 
-## Contributing
+`php artisan migrate`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+After successful migration, you are ready to give the API a go, break a leg!
 
-## Code of Conduct
+## API Documentation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Full documentation can be found in the following links:
 
-## Security Vulnerabilities
+1. OpenAPI 2.0 specificaiton compliant documentation: [Meal Recommender](https://meal-recommender-api.herokuapp.com/docs).
+2. Postman documentation with real request and response examples at: [Meal Recommender Collection](https://documenter.getpostman.com/view/4758703/Tzsik4Jg).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## About Onubrooks
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+My name is Onuh Abah and you can find more of my work at: [onubrooks](https://github.com/onubrooks). Let's catch up on social media via [twitter](https://twitter.com/onubrooks) and [linkedin](https://www.linkedin.com/in/onu-abah)
