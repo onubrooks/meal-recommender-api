@@ -16,7 +16,51 @@ This project is live on [Heroku Meal Recommender](https://meal-recommender-api.h
 
 ## How it works
 
-A simple API, all you need to do is create one or more users, add their allergies and that's it. Recommendations can then be fetched via POST requests on the API. Below is a sample recommendation for a user with Nut Allergy:
+With a simple API call, all you need to do is create one or more users:
+
+```curl
+curl --request POST \
+    "https://meal-recommender-api.herokuapp.com/api/users" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"Idris Elba\",
+    \"email\": \"elba@onubrooks.io\",
+    \"password\": \"password\",
+    \"password_confirmation\": \"password\"
+}"
+```
+
+Then add their allergies:
+
+```curl
+curl --request POST \
+    "https://meal-recommender-api.herokuapp.com/api/user-allergies" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"user_id\": 3,
+    \"allergies\": [
+        {
+            \"allergy_id\": 1
+        }
+    ]
+}"
+```
+
+And that's it. Recommendations can then be fetched via POST requests on the API.
+
+```curl
+curl --request POST \
+    "https://meal-recommender-api.herokuapp.com/api/recommend/user" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"user_id\": 1
+}"
+```
+
+Below is a sample recommendation for a user with Nut Allergy:
 
 ```json
 {
@@ -33,19 +77,19 @@ A simple API, all you need to do is create one or more users, add their allergie
                 "id": 3,
                 "name": "akpu and Ewedu",
                 "description": "special akpu from the eastern part of Nigeria",
-                "items": []
+                "items": [...]
             },
             {
                 "id": 4,
                 "name": "pounded yam and Ewedu",
                 "description": "special pounded yam from the southern part of Nigeria",
-                "items": []
+                "items": [...]
             },
             {
                 "id": 5,
                 "name": "Eba and Okra",
                 "description": "special garri cake with okra soup",
-                "items": []
+                "items": [...]
             }
         ]
     }
@@ -72,8 +116,9 @@ After successful migration, you are ready to give the API a go, break a leg!
 
 Full documentation can be found in the following links:
 
-1. OpenAPI 2.0 specificaiton compliant documentation: [Meal Recommender](https://meal-recommender-api.herokuapp.com/docs).
+1. OpenAPI 2.0 specificaiton compliant API documentation: [Meal Recommender](https://meal-recommender-api.herokuapp.com/docs).
 2. Postman documentation with real request and response examples at: [Meal Recommender Collection](https://documenter.getpostman.com/view/4758703/Tzsik4Jg).
+3. Technical specification and data architecture design can be found [here](https://documenter.getpostman.com/view/4758703/Tzsik4Jg).
 
 ## About Onubrooks
 
