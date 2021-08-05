@@ -25,7 +25,7 @@ class DataRepository{
         {
             return Meal::with('items')->paginate();
         }
-        return Meal::with('items')->all();
+        return Meal::with('items')->get();
     }
 
     public static function saveMeal($payload)
@@ -41,7 +41,7 @@ class DataRepository{
         if ($paginate) {
             return Allergy::paginate();
         }
-        return Allergy::all();
+        return Allergy::get();
     }
 
     public static function saveAllergy($payload)
@@ -55,9 +55,9 @@ class DataRepository{
     public static function fetchItems($paginate = false)
     {
         if ($paginate) {
-            return Item::paginate();
+            return Item::with('allergies')->paginate();
         }
-        return Item::all();
+        return Item::with('allergies')->get();
     }
 
     public static function saveItem($payload)
@@ -71,9 +71,9 @@ class DataRepository{
     public static function fetchUsers($paginate = false)
     {
         if ($paginate) {
-            return User::paginate();
+            return User::with('allergies')->paginate();
         }
-        return User::all();
+        return User::with('allergies')->get();
     }
 
     public static function saveUser($payload)
@@ -86,7 +86,7 @@ class DataRepository{
 
     public static function fetchMealItems($meal_id)
     {
-        return Meal::find($meal_id)->items();
+        return Meal::with('items')->find($meal_id);
     }
 
     public static function saveMealItems($items, $meal_id)
@@ -102,33 +102,33 @@ class DataRepository{
 
     public static function fetchItemAllergies($item_id)
     {
-        return Item::find($item_id)->allergies();
+        return Item::with('allergies')->find($item_id);
     }
 
     public static function saveItemAllergies($allergies, $item_id)
     {
         foreach ($allergies as $allergy) {
             ItemAllergy::updateOrCreate(
-                ['item_id' => $item_id, 'allergy_id' => $allergy],
-                ['item_id' => $item_id, 'allergy_id' => $allergy],
+                ['item_id' => $item_id, 'allergy_id' => $allergy['allergy_id']],
+                ['item_id' => $item_id, 'allergy_id' => $allergy['allergy_id']],
             );
         }
-        return Item::find($item_id)->allergies();
+        return Item::with('allergies')->find($item_id);
     }
 
     public static function fetchUserAllergies($user_id)
     {
-        return User::find($user_id)->allergies();
+        return User::with('allergies')->find($user_id);
     }
 
     public static function saveUserAllergies($allergies, $user_id)
     {
         foreach ($allergies as $allergy) {
             UserAllergy::updateOrCreate(
-                ['user_id' => $user_id, 'allergy_id' => $allergy],
-                ['user_id' => $user_id, 'allergy_id' => $allergy],
+                ['user_id' => $user_id, 'allergy_id' => $allergy['allergy_id']],
+                ['user_id' => $user_id, 'allergy_id' => $allergy['allergy_id']],
             );
         }
-        return User::find($user_id)->allergies();
+        return User::with('allergies')->find($user_id);
     }
 }

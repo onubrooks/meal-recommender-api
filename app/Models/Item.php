@@ -24,7 +24,7 @@ class Item extends Model
      */
     public function allergies()
     {
-        return $this->belongsToMany(Allergy::class, 'item_allergies');
+        return $this->belongsToMany(Allergy::class, 'item_allergies')->select(['id', 'name', 'description']);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 use App\Repository\DataRepository;
 use App\Repository\Helpers;
@@ -25,7 +26,7 @@ class DataController extends Controller
         $paginate = $request->paginate ?? false;
         $data = DataRepository::fetchMeals($paginate);
 
-        return Helpers::sendSuccessResponse($data, 'fetch meal successful');
+        return Helpers::sendSuccessResponse($data, 'fetch meals successful');
     }
 
     /**

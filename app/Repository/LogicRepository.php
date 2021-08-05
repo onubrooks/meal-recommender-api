@@ -15,23 +15,14 @@ namespace App\Repository;
 
 use App\Models\Meal;
 use App\Models\User;
-use App\Models\Allergy;
-use App\Models\Item;
 use App\Models\MealItem;
 use App\Models\ItemAllergy;
-use App\Models\UserAllergy;
 
 class LogicRepository
 {
     public static function recommendSingleUser($user_id)
     {
-        $user = User::find($user_id);
-        $user_allergies = $user->allergies()->pluck('allergy_id');
-        $user_safe_items = ItemAllergy::whereNotIn('allergy_id', $user_allergies)->pluck('item_id');
-        $user_safe_meals = MealItem::whereIn('item_id', $user_safe_items)->pluck('meal_id');
-        $recommended_meals = Meal::where('id', $user_safe_meals)->with('items')->get();
-
-        return $recommended_meals;
+       return static::recommend($user_id);
     }
 
     public static function recommendMultipleUsers($userList)
@@ -39,15 +30,25 @@ class LogicRepository
         $listOfRecommendations = [];
         foreach($userList as $user_id)
         {
-            $user = User::find($user_id);
-            $user_allergies = $user->allergies()->pluck('allergy_id');
-            $user_safe_items = ItemAllergy::whereNotIn('allergy_id', $user_allergies)->pluck('item_id');
-            $user_safe_meals = MealItem::whereIn('item_id', $user_safe_items)->pluck('meal_id');
-            $recommended_meals = Meal::where('id', $user_safe_meals)->with('items')->get();
+            $recommend = static::recommend($user_id);
 
-            $listOfRecommendations[] = $recommended_meals;
+            $listOfRecommendations[] = $recommend;
         }
 
         return $listOfRecommendations;
+    }
+
+    private static function recommend($user_id)
+    {
+        $user = User::select('id', 'name', 'email')->find($user_id);
+        $user_allergies = $user->allergies()->pluck('allergy_id');
+        $user_unsafe_items = ItemAllergy::whereIn('allergy_id', $user_allergies)->pluck('item_id');
+        $user_unsafe_meals = MealItem::whereIn('item_id', $user_unsafe_items)->pluck('meal_id');
+        $recommended_meals = Meal::whereNotIn('id', $user_unsafe_meals)->select('id', 'name', 'description')->with('items')->get();
+
+        return [
+            'user' => $user,
+            'recommended_meals' => $recommended_meals
+        ];
     }
 }

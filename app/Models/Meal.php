@@ -24,6 +24,6 @@ class Meal extends Model
      */
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'meal_items');
+        return $this->belongsToMany(Item::class, 'meal_items')->select(['id', 'name', 'description']);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DataController;
@@ -81,7 +80,7 @@ Route::post('/users', [DataController::class, 'saveUser']);
 |
 */
 
-Route::get('/meal-items', [DataRelationshipController::class, 'fetchMealItems']);
+Route::get('/meal-items/{meal_id}', [DataRelationshipController::class, 'fetchMealItems']);
 
 Route::post('/meal-items', [DataRelationshipController::class, 'saveMealItems']);
 
@@ -92,7 +91,7 @@ Route::post('/meal-items', [DataRelationshipController::class, 'saveMealItems'])
 |
 */
 
-Route::get('/item-allergies', [DataRelationshipController::class, 'fetchItemAllergies']);
+Route::get('/item-allergies/{item_id}', [DataRelationshipController::class, 'fetchItemAllergies']);
 
 Route::post('/item-allergies', [DataRelationshipController::class, 'saveItemAllergies']);
 
@@ -103,6 +102,6 @@ Route::post('/item-allergies', [DataRelationshipController::class, 'saveItemAlle
 |
 */
 
-Route::get('/user-allergies', [DataRelationshipController::class, 'fetchUserAllergies']);
+Route::get('/user-allergies/{user_id}', [DataRelationshipController::class, 'fetchUserAllergies']);
 
 Route::post('/user-allergies', [DataRelationshipController::class, 'saveUserAllergies']);

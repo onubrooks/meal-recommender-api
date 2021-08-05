@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 use App\Repository\DataRepository;
 use App\Repository\Helpers;
@@ -20,12 +21,9 @@ class DataRelationshipController extends Controller
      * @responseField status The status of this API (`success` or `error`).
      * @responseField data List of meal-items queried from the API.
      */
-    public function fetchMealItems(Request $request)
+    public function fetchMealItems($meal_id)
     {
-        $request->validate([
-            'meal_id' => ['required', 'integer'],
-        ]);
-        $data = DataRepository::fetchMealItems($request->meal_id);
+        $data = DataRepository::fetchMealItems($meal_id);
 
         return Helpers::sendSuccessResponse($data, 'fetch meal-items successful');
     }
@@ -64,11 +62,8 @@ class DataRelationshipController extends Controller
      * @responseField status The status of this API (`success` or `error`).
      * @responseField data List of 'item-allergies' queried from the API.
      */
-    public function fetchItemAllergies(Request $request) {
-        $request->validate([
-            'item_id' => ['required', 'integer'],
-        ]);
-        $data = DataRepository::fetchItemAllergies($request->item_id);
+    public function fetchItemAllergies($item_id) {
+        $data = DataRepository::fetchItemAllergies($item_id);
 
         return Helpers::sendSuccessResponse($data, 'fetch item-allergies successful');
     }
@@ -87,6 +82,7 @@ class DataRelationshipController extends Controller
         $request->validate([
             'item_id' => ['required', 'integer'],
             'allergies' => ['required', 'array'],
+            'allergies.*.allergy_id' => ['required', 'integer'],
         ]);
         $data = DataRepository::saveItemAllergies($request->allergies, $request->item_id);
 
@@ -105,11 +101,8 @@ class DataRelationshipController extends Controller
      * @responseField status The status of this API (`success` or `error`).
      * @responseField data List of 'user-allergies' queried from the API.
      */
-    public function fetchUserAllergies(Request $request) {
-        $request->validate([
-            'user_id' => ['required', 'integer'],
-        ]);
-        $data = DataRepository::fetchUserAllergies($request->user_id);
+    public function fetchUserAllergies($user_id) {
+        $data = DataRepository::fetchUserAllergies($user_id);
 
         return Helpers::sendSuccessResponse($data, 'fetch user-allergies successful');
     }
@@ -128,6 +121,7 @@ class DataRelationshipController extends Controller
         $request->validate([
             'user_id' => ['required', 'integer'],
             'allergies' => ['required', 'array'],
+            'allergies.*.allergy_id' => ['required', 'integer'],
         ]);
         $data = DataRepository::saveUserAllergies($request->allergies, $request->user_id);
 
