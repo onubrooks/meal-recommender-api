@@ -25,8 +25,11 @@ class RecommenderController extends Controller
         $request->validate([
             'user_id' => ['required', 'integer'],
         ]);
-        $data = LogicRepository::recommendSingleUser($request->user_id);
+        $user_id = $request->user_id;
 
+        $data = Cache::remember("recommend_single_$user_id", 60, function() use ($user_id) {
+            return LogicRepository::recommendSingleUser($user_id);
+        });
         return Helpers::sendSuccessResponse($data, 'fetch recommendations successful');
     }
 

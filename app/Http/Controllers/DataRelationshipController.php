@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Cache;
 use App\Repository\DataRepository;
 use App\Repository\Helpers;
 
+/**
+ * @group Data Relationship Management
+ *
+ * APIs for managing data relationships, intermediate tables CRUD operations
+ */
 class DataRelationshipController extends Controller
 {
     /**
@@ -23,7 +28,9 @@ class DataRelationshipController extends Controller
      */
     public function fetchMealItems($meal_id)
     {
-        $data = DataRepository::fetchMealItems($meal_id);
+        $data = Cache::remember("meal_items_$meal_id", 120, function () use ($meal_id) {
+            return DataRepository::fetchMealItems($meal_id);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch meal-items successful');
     }
@@ -63,7 +70,9 @@ class DataRelationshipController extends Controller
      * @responseField data List of 'item-allergies' queried from the API.
      */
     public function fetchItemAllergies($item_id) {
-        $data = DataRepository::fetchItemAllergies($item_id);
+        $data = Cache::remember("item_allergies_$item_id", 120, function () use ($item_id) {
+            return DataRepository::fetchItemAllergies($item_id);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch item-allergies successful');
     }
@@ -102,7 +111,9 @@ class DataRelationshipController extends Controller
      * @responseField data List of 'user-allergies' queried from the API.
      */
     public function fetchUserAllergies($user_id) {
-        $data = DataRepository::fetchUserAllergies($user_id);
+        $data = Cache::remember("user_allergies_$user_id", 120, function () use ($user_id) {
+            return DataRepository::fetchUserAllergies($user_id);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch user-allergies successful');
     }

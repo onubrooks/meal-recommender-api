@@ -5,7 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\DataRelationshipController;
 use App\Http\Controllers\RecommenderController;
+use Illuminate\Support\Facades\Event;
 
+Event::listen('illuminate.query', function ($query) {
+    echo $query;
+});
 /*
 |--------------------------------------------------------------------------
 | API Routes

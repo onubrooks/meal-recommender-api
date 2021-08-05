@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Cache;
 use App\Repository\DataRepository;
 use App\Repository\Helpers;
 
+/**
+ * @group Data Management
+ *
+ * APIs for managing data CRUD operations
+ */
 class DataController extends Controller
 {
     /**
@@ -24,7 +29,9 @@ class DataController extends Controller
     public function fetchMeals(Request $request) 
     {
         $paginate = $request->paginate ?? false;
-        $data = DataRepository::fetchMeals($paginate);
+        $data = Cache::remember('meals', 120, function () use ($paginate) {
+            return DataRepository::fetchMeals($paginate);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch meals successful');
     }
@@ -63,7 +70,9 @@ class DataController extends Controller
      */
     public function fetchAllergies(Request $request) {
         $paginate = $request->paginate ?? false;
-        $data = DataRepository::fetchAllergies($paginate);
+        $data = Cache::remember('allergies', 120, function () use ($paginate) {
+            return DataRepository::fetchAllergies($paginate);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch allergies successful');
     }
@@ -102,7 +111,9 @@ class DataController extends Controller
      */
     public function fetchItems(Request $request) {
         $paginate = $request->paginate ?? false;
-        $data = DataRepository::fetchItems($paginate);
+        $data = Cache::remember('items', 120, function () use ($paginate) {
+            return DataRepository::fetchItems($paginate);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch items successful');
     }
@@ -140,7 +151,9 @@ class DataController extends Controller
      */
     public function fetchUsers(Request $request) {
         $paginate = $request->paginate ?? false;
-        $data = DataRepository::fetchUsers($paginate);
+        $data = Cache::remember('users', 120, function () use ($paginate) {
+            return DataRepository::fetchUsers($paginate);
+        });
 
         return Helpers::sendSuccessResponse($data, 'fetch users successful');
     }
