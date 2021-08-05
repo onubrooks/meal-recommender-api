@@ -1,0 +1,332 @@
+name: 'Data Relationship Management'
+description: |-
+
+  APIs for managing data relationships, intermediate tables CRUD operations
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/meal-items
+    metadata:
+      title: 'Add/Create/Update Meal-Items'
+      description: 'Create or update one or more ''meal-item'' record, supplying the meal_id and a list of items to be saved.'
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      meal_id:
+        name: meal_id
+        description: 'Identifier of the meal.'
+        required: false
+        example: 6
+        type: integer
+      items:
+        name: items
+        description: 'A list of items that are part of the meal.'
+        required: false
+        example:
+          - []
+          - []
+        type: 'object[]'
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 422
+        content: '{"message":"The given data was invalid.","errors":{"items":["The items field is required."]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '48'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: ''
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: ''
+      data:
+        name: data
+        description: '''Meal-Items'' record just created or updated.'
+        type: ''
+  -
+    httpMethods:
+      - POST
+    uri: api/item-allergies
+    metadata:
+      title: 'Add/Create/Update Item-Allergies'
+      description: 'Create or update one or more ''item-allergies'' record, supplying the item_id and a list of allergies to be saved.'
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      item_id:
+        name: item_id
+        description: 'Identifier of the item.'
+        required: false
+        example: 12
+        type: integer
+      allergies:
+        name: allergies
+        description: 'A list of allergies that are in the item.'
+        required: false
+        example:
+          -
+            allergy_id: 1
+        type: 'object[]'
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"save item-allergies successful","data":{"id":12,"name":"Roast Fish","description":"fish roasted with hot fire","created_at":"2021-08-05T14:16:49.000000Z","updated_at":"2021-08-05T14:16:49.000000Z","allergies":[{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","pivot":{"item_id":12,"allergy_id":1}}]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '46'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: '''Item-Allergies'' record just created or updated.'
+        type: object
+  -
+    httpMethods:
+      - POST
+    uri: api/user-allergies
+    metadata:
+      title: 'Add/Create/Update User-Allergies'
+      description: 'Create or update one or more ''user-allergies'' record, supplying the user_id and list of allergies to be saved.'
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: 'Identifier of the item.'
+        required: false
+        example: 3
+        type: integer
+      allergies:
+        name: allergies
+        description: 'A list of allergies that are in the item.'
+        required: false
+        example:
+          -
+            allergy_id: 1
+        type: 'object[]'
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"save user allergies successful","data":{"id":3,"name":"Idris Elba","email":"elba@onubrooks.io","email_verified_at":null,"created_at":"2021-08-05T14:16:50.000000Z","updated_at":"2021-08-05T14:19:28.000000Z","allergies":[{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","created_at":"2021-08-04T22:51:03.000000Z","updated_at":"2021-08-04T22:51:03.000000Z","pivot":{"user_id":3,"allergy_id":1}}]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '44'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: '''User-Allergies'' record just created or updated.'
+        type: object
+  -
+    httpMethods:
+      - GET
+    uri: 'api/meal-items/{meal_id}'
+    metadata:
+      title: 'Fetch Meal-Items'
+      description: |-
+        Fetch a list of all 'meal-items' in the recommender. If everything is okay, you'll get a 200 OK response.
+
+        Otherwise, the request will fail with a 400 error, and an error field.
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      meal_id:
+        name: meal_id
+        description: 'The ID of the meal.'
+        required: true
+        example: 1
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"fetch meal-items successful","data":{"id":1,"name":"Eba and Ewedu","description":"special eba from the western part of Nigeria","created_at":"2021-08-04T22:40:03.000000Z","updated_at":"2021-08-04T22:40:03.000000Z","items":[{"id":1,"name":"Ewedu","description":"Ewedu soup","pivot":{"meal_id":1,"item_id":1}},{"id":11,"name":"Eba","description":"delicious swallow","pivot":{"meal_id":1,"item_id":11}}]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '49'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'List of meal-items queried from the API.'
+        type: object
+  -
+    httpMethods:
+      - GET
+    uri: 'api/item-allergies/{item_id}'
+    metadata:
+      title: 'Fetch Item-Allergies'
+      description: |-
+        Fetch a list of all 'item-allergies' in the recommender. If everything is okay, you'll get a 200 OK response.
+
+        Otherwise, the request will fail with a 400 error, and an error field.
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      item_id:
+        name: item_id
+        description: 'The ID of the item.'
+        required: true
+        example: 2
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"fetch item-allergies successful","data":{"id":2,"name":"Pounded Yam","description":"Yam that is pounded","created_at":"2021-08-04T22:45:30.000000Z","updated_at":"2021-08-04T22:45:30.000000Z","allergies":[{"id":2,"name":"ShellFish Allergy","description":"Allergic to ShellFish","pivot":{"item_id":2,"allergy_id":2}}]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '47'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'List of ''item-allergies'' queried from the API.'
+        type: object
+  -
+    httpMethods:
+      - GET
+    uri: 'api/user-allergies/{user_id}'
+    metadata:
+      title: 'Fetch User-Allergies'
+      description: |-
+        Fetch a list of all 'user-allergies' in the recommender. If everything is okay, you'll get a 200 OK response.
+
+        Otherwise, the request will fail with a 400 error, and an error field.
+      authenticated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 400
+        content: .
+        headers: []
+        description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"fetch user-allergies successful","data":{"id":1,"name":"Brad Pitt","email":"pit@onubrooksapi.com","email_verified_at":null,"created_at":"2021-08-04T22:55:02.000000Z","updated_at":"2021-08-04T22:55:10.000000Z","allergies":[{"id":3,"name":"SeaFood Allergy","description":"Allergic to SeaFood","created_at":"2021-08-04T22:51:36.000000Z","updated_at":"2021-08-04T22:51:36.000000Z","pivot":{"user_id":1,"allergy_id":3}},{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","created_at":"2021-08-04T22:51:03.000000Z","updated_at":"2021-08-04T22:51:03.000000Z","pivot":{"user_id":1,"allergy_id":1}}]}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '45'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields:
+      status:
+        name: status
+        description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
+      data:
+        name: data
+        description: 'List of ''user-allergies'' queried from the API.'
+        type: object

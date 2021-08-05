@@ -1,70 +1,8 @@
-name: Endpoints
-description: ''
+name: 'Data Management'
+description: |-
+
+  APIs for managing data CRUD operations
 endpoints:
-  -
-    httpMethods:
-      - POST
-    uri: api/recommend
-    metadata:
-      title: 'Fetch Multiple Users Recommendations'
-      description: |-
-        Fetch all recommended meals for a list of users' based on their allergies. If everything is okay, you'll get a 200 OK response.
-
-        Otherwise, the request will fail with a 400 error, and an error field.
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: 'List of recommended meals for each user.'
-        type: ''
-  -
-    httpMethods:
-      - POST
-    uri: api/recommend/user
-    metadata:
-      title: 'Fetch User Recommendations'
-      description: |-
-        Fetch a list of a given users' recommended meals based on their allergies. If everything is okay, you'll get a 200 OK response.
-
-        Otherwise, the request will fail with a 400 error, and an error field.
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: 'List of users'' recommended meals.'
-        type: ''
   -
     httpMethods:
       - POST
@@ -78,22 +16,48 @@ endpoints:
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the meal.'
+        required: false
+        example: 'Grilled Fish with Spice Chilli'
+        type: string
+      description:
+        name: description
+        description: 'Brief description.'
+        required: false
+        example: 'This is the description'
+        type: string
     responses:
       -
         status: 400
         content: .
         headers: []
         description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"save meal successful","data":{"id":6,"name":"Grilled Fish with Spice Chilli","description":"This is the description","created_at":"2021-08-05T14:16:49.000000Z","updated_at":"2021-08-05T14:16:49.000000Z"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '56'
+          access-control-allow-origin: '*'
+        description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
-        type: ''
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
       data:
         name: data
         description: 'Meal record just created or updated.'
-        type: ''
+        type: object
   -
     httpMethods:
       - POST
@@ -107,17 +71,43 @@ endpoints:
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the allergy.'
+        required: false
+        example: 'Fish Allergy'
+        type: string
+      description:
+        name: description
+        description: 'Brief description of the allergy.'
+        required: false
+        example: 'Allergic to fish!'
+        type: string
     responses:
       -
         status: 400
         content: .
         headers: []
         description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 400
+        content: '{"status":"error","message":"cannot create allergy, only 3 allergies are currently supported","errors":[]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '54'
+          access-control-allow-origin: '*'
+        description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
+        type: ''
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
         type: ''
       data:
         name: data
@@ -136,22 +126,48 @@ endpoints:
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the item.'
+        required: false
+        example: 'Roast Fish'
+        type: string
+      description:
+        name: description
+        description: 'Brief description of the item.'
+        required: false
+        example: 'fish roasted with hot fire'
+        type: string
     responses:
       -
         status: 400
         content: .
         headers: []
         description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"save item successful","data":{"id":12,"name":"Roast Fish","description":"fish roasted with hot fire","created_at":"2021-08-05T14:16:49.000000Z","updated_at":"2021-08-05T14:16:49.000000Z"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '52'
+          access-control-allow-origin: '*'
+        description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
-        type: ''
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
       data:
         name: data
         description: 'Item record just created or updated.'
-        type: ''
+        type: object
   -
     httpMethods:
       - POST
@@ -165,235 +181,60 @@ endpoints:
       Accept: application/json
     urlParameters: []
     queryParameters: []
-    bodyParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the user.'
+        required: false
+        example: 'Idris Elba'
+        type: string
+      email:
+        name: email
+        description: 'User email.'
+        required: false
+        example: elba@onubrooks.io
+        type: string
+      password:
+        name: password
+        description: 'User password.'
+        required: false
+        example: password
+        type: string
+      password_confirmation:
+        name: password_confirmation
+        description: 'Password confirmation.'
+        required: false
+        example: password
+        type: string
     responses:
       -
         status: 400
         content: .
         headers: []
         description: '400, Service is down or an unexpected error occurred'
+      -
+        status: 200
+        content: '{"status":"success","message":"save user successful","data":{"id":3,"name":"Idris Elba","email":"elba@onubrooks.io","email_verified_at":null,"created_at":"2021-08-05T14:16:50.000000Z","updated_at":"2021-08-05T14:19:28.000000Z"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '50'
+          access-control-allow-origin: '*'
+        description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
-        type: ''
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
       data:
         name: data
         description: 'User record just created or updated.'
-        type: ''
-  -
-    httpMethods:
-      - GET
-    uri: api/meal-items
-    metadata:
-      title: 'Fetch Meal-Items'
-      description: |-
-        Fetch a list of all 'meal-items' in the recommender. If everything is okay, you'll get a 200 OK response.
-
-        Otherwise, the request will fail with a 400 error, and an error field.
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-      -
-        status: 422
-        content: '{"message":"The given data was invalid.","errors":{"meal_id":["The meal id field is required."]}}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '55'
-          access-control-allow-origin: '*'
-        description: null
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: 'List of meal-items queried from the API.'
-        type: ''
-  -
-    httpMethods:
-      - POST
-    uri: api/meal-items
-    metadata:
-      title: 'Add/Create/Update Meal-Items'
-      description: 'Create or update one or more ''meal-item'' record, supplying the meal_id and a list of items to be saved.'
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: '''Meal-Items'' record just created or updated.'
-        type: ''
-  -
-    httpMethods:
-      - GET
-    uri: api/item-allergies
-    metadata:
-      title: 'Fetch Item-Allergies'
-      description: |-
-        Fetch a list of all 'item-allergies' in the recommender. If everything is okay, you'll get a 200 OK response.
-
-        Otherwise, the request will fail with a 400 error, and an error field.
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-      -
-        status: 422
-        content: '{"message":"The given data was invalid.","errors":{"item_id":["The item id field is required."]}}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '54'
-          access-control-allow-origin: '*'
-        description: null
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: 'List of ''item-allergies'' queried from the API.'
-        type: ''
-  -
-    httpMethods:
-      - POST
-    uri: api/item-allergies
-    metadata:
-      title: 'Add/Create/Update Item-Allergies'
-      description: 'Create or update one or more ''item-allergies'' record, supplying the item_id and a list of allergies to be saved.'
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: '''Item-Allergies'' record just created or updated.'
-        type: ''
-  -
-    httpMethods:
-      - GET
-    uri: api/user-allergies
-    metadata:
-      title: 'Fetch User-Allergies'
-      description: |-
-        Fetch a list of all 'user-allergies' in the recommender. If everything is okay, you'll get a 200 OK response.
-
-        Otherwise, the request will fail with a 400 error, and an error field.
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-      -
-        status: 422
-        content: '{"message":"The given data was invalid.","errors":{"user_id":["The user id field is required."]}}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '53'
-          access-control-allow-origin: '*'
-        description: null
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: 'List of ''user-allergies'' queried from the API.'
-        type: ''
-  -
-    httpMethods:
-      - POST
-    uri: api/user-allergies
-    metadata:
-      title: 'Add/Create/Update User-Allergies'
-      description: 'Create or update one or more ''user-allergies'' record, supplying the user_id and list of allergies to be saved.'
-      authenticated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters: []
-    responses:
-      -
-        status: 400
-        content: .
-        headers: []
-        description: '400, Service is down or an unexpected error occurred'
-    responseFields:
-      status:
-        name: status
-        description: 'The status of this API (`success` or `error`).'
-        type: ''
-      data:
-        name: data
-        description: '''User-Allergies'' record just created or updated.'
-        type: ''
+        type: object
   -
     httpMethods:
       - GET
@@ -418,494 +259,28 @@ endpoints:
         headers: []
         description: '400, Service is down or an unexpected error occurred'
       -
-        status: 500
-        content: |-
-          {
-              "message": "Call to undefined method Illuminate\\Database\\Eloquent\\Builder::all()",
-              "exception": "BadMethodCallException",
-              "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php",
-              "line": 50,
-              "trace": [
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php",
-                      "line": 36,
-                      "function": "throwBadMethodCallException",
-                      "class": "Illuminate\\Database\\Eloquent\\Builder",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php",
-                      "line": 1620,
-                      "function": "forwardCallTo",
-                      "class": "Illuminate\\Database\\Eloquent\\Builder",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\app\\Repository\\DataRepository.php",
-                      "line": 28,
-                      "function": "__call",
-                      "class": "Illuminate\\Database\\Eloquent\\Builder",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\app\\Http\\Controllers\\DataController.php",
-                      "line": 26,
-                      "function": "fetchMeals",
-                      "class": "App\\Repository\\DataRepository",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php",
-                      "line": 54,
-                      "function": "fetchMeals",
-                      "class": "App\\Http\\Controllers\\DataController",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php",
-                      "line": 45,
-                      "function": "callAction",
-                      "class": "Illuminate\\Routing\\Controller",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                      "line": 254,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\ControllerDispatcher",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-                      "line": 197,
-                      "function": "runController",
-                      "class": "Illuminate\\Routing\\Route",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 695,
-                      "function": "run",
-                      "class": "Illuminate\\Routing\\Route",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 128,
-                      "function": "Illuminate\\Routing\\{closure}",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-                      "line": 50,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 127,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 103,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 55,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 103,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 697,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 672,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 636,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 625,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 166,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 128,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-                      "line": 86,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\fruitcake\\laravel-cors\\src\\HandleCors.php",
-                      "line": 52,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Fruitcake\\Cors\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\fideloper\\proxy\\src\\TrustProxies.php",
-                      "line": 57,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 167,
-                      "function": "handle",
-                      "class": "Fideloper\\Proxy\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 103,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 141,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 110,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 287,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 275,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 86,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 44,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 34,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 225,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 182,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 116,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 118,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 75,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 51,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-                      "line": 39,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-                      "line": 40,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 37,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                      "line": 651,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 136,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\symfony\\console\\Command\\Command.php",
-                      "line": 299,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 121,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\symfony\\console\\Application.php",
-                      "line": 978,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\symfony\\console\\Application.php",
-                      "line": 295,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\symfony\\console\\Application.php",
-                      "line": 167,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-                      "line": 92,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-                      "line": 129,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\Users\\onu\\Desktop\\Artinict\\software library\\meal-recommendation-api\\artisan",
-                      "line": 37,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
+        status: 200
+        content: '{"status":"success","message":"fetch meals successful","data":[{"id":1,"name":"Eba and Ewedu","description":"special eba from the western part of Nigeria","created_at":"2021-08-04T22:40:03.000000Z","updated_at":"2021-08-04T22:40:03.000000Z","items":[{"id":1,"name":"Ewedu","description":"Ewedu soup","pivot":{"meal_id":1,"item_id":1}},{"id":11,"name":"Eba","description":"delicious swallow","pivot":{"meal_id":1,"item_id":11}}]},{"id":2,"name":"fufu and Ewedu","description":"special fufu from the eastern part of Nigeria","created_at":"2021-08-04T22:41:45.000000Z","updated_at":"2021-08-04T22:41:45.000000Z","items":[{"id":1,"name":"Ewedu","description":"Ewedu soup","pivot":{"meal_id":2,"item_id":1}},{"id":3,"name":"Fufu","description":"exotic swallow","pivot":{"meal_id":2,"item_id":3}}]},{"id":3,"name":"akpu and Ewedu","description":"special akpu from the eastern part of Nigeria","created_at":"2021-08-04T22:42:00.000000Z","updated_at":"2021-08-04T22:42:00.000000Z","items":[]},{"id":4,"name":"pounded yam and Ewedu","description":"special pounded yam from the southern part of Nigeria","created_at":"2021-08-04T22:42:25.000000Z","updated_at":"2021-08-04T22:42:25.000000Z","items":[]},{"id":5,"name":"Eba and Okra","description":"special garri cake with okra soup","created_at":"2021-08-04T22:56:07.000000Z","updated_at":"2021-08-04T22:56:07.000000Z","items":[]},{"id":6,"name":"Grilled Fish with Spice Chilli","description":"This is the description","created_at":"2021-08-05T14:16:49.000000Z","updated_at":"2021-08-05T14:16:49.000000Z","items":[]}]}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '59'
+          x-ratelimit-remaining: '57'
           access-control-allow-origin: '*'
         description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
-        type: ''
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
+        type: string
       data:
         name: data
         description: 'List of meals queried from the API.'
-        type: ''
+        type: array
   -
     httpMethods:
       - GET
@@ -936,13 +311,17 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '58'
+          x-ratelimit-remaining: '55'
           access-control-allow-origin: '*'
         description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
         type: string
       data:
         name: data
@@ -973,18 +352,22 @@ endpoints:
         description: '400, Service is down or an unexpected error occurred'
       -
         status: 200
-        content: '{"status":"success","message":"fetch items successful","data":[{"id":1,"name":"Ewedu","description":"Ewedu soup","created_at":"2021-08-04T22:45:11.000000Z","updated_at":"2021-08-04T22:45:11.000000Z"},{"id":2,"name":"Pounded Yam","description":"Yam that is pounded","created_at":"2021-08-04T22:45:30.000000Z","updated_at":"2021-08-04T22:45:30.000000Z"},{"id":3,"name":"Fufu","description":"exotic swallow","created_at":"2021-08-04T22:45:46.000000Z","updated_at":"2021-08-04T22:45:46.000000Z"},{"id":4,"name":"Akpu","description":"exotic swallow with a spice to it","created_at":"2021-08-04T22:45:59.000000Z","updated_at":"2021-08-04T22:45:59.000000Z"},{"id":5,"name":"Oha soup","description":"exotic soup with a bling to it","created_at":"2021-08-04T22:46:16.000000Z","updated_at":"2021-08-04T22:46:16.000000Z"},{"id":6,"name":"Edikaikong soup","description":"exotic soup everyone wants but cant have","created_at":"2021-08-04T22:46:39.000000Z","updated_at":"2021-08-04T22:46:39.000000Z"},{"id":7,"name":"Boiled rice","description":"rice grain boiled","created_at":"2021-08-04T22:47:01.000000Z","updated_at":"2021-08-04T22:47:01.000000Z"},{"id":8,"name":"Fried rice","description":"rice grain fried","created_at":"2021-08-04T22:47:10.000000Z","updated_at":"2021-08-04T22:47:10.000000Z"},{"id":9,"name":"Jollof rice","description":"rice grain jollof","created_at":"2021-08-04T22:47:22.000000Z","updated_at":"2021-08-04T22:47:22.000000Z"},{"id":10,"name":"Okra soup","description":"delicious soup made with the great okra plant","created_at":"2021-08-04T22:56:45.000000Z","updated_at":"2021-08-04T22:56:45.000000Z"},{"id":11,"name":"Eba","description":"delicious swallow","created_at":"2021-08-04T23:16:05.000000Z","updated_at":"2021-08-04T23:16:05.000000Z"}]}'
+        content: '{"status":"success","message":"fetch items successful","data":[{"id":1,"name":"Ewedu","description":"Ewedu soup","created_at":"2021-08-04T22:45:11.000000Z","updated_at":"2021-08-04T22:45:11.000000Z","allergies":[{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","pivot":{"item_id":1,"allergy_id":1}}]},{"id":2,"name":"Pounded Yam","description":"Yam that is pounded","created_at":"2021-08-04T22:45:30.000000Z","updated_at":"2021-08-04T22:45:30.000000Z","allergies":[{"id":2,"name":"ShellFish Allergy","description":"Allergic to ShellFish","pivot":{"item_id":2,"allergy_id":2}}]},{"id":3,"name":"Fufu","description":"exotic swallow","created_at":"2021-08-04T22:45:46.000000Z","updated_at":"2021-08-04T22:45:46.000000Z","allergies":[{"id":2,"name":"ShellFish Allergy","description":"Allergic to ShellFish","pivot":{"item_id":3,"allergy_id":2}},{"id":3,"name":"SeaFood Allergy","description":"Allergic to SeaFood","pivot":{"item_id":3,"allergy_id":3}}]},{"id":4,"name":"Akpu","description":"exotic swallow with a spice to it","created_at":"2021-08-04T22:45:59.000000Z","updated_at":"2021-08-04T22:45:59.000000Z","allergies":[]},{"id":5,"name":"Oha soup","description":"exotic soup with a bling to it","created_at":"2021-08-04T22:46:16.000000Z","updated_at":"2021-08-04T22:46:16.000000Z","allergies":[]},{"id":6,"name":"Edikaikong soup","description":"exotic soup everyone wants but cant have","created_at":"2021-08-04T22:46:39.000000Z","updated_at":"2021-08-04T22:46:39.000000Z","allergies":[]},{"id":7,"name":"Boiled rice","description":"rice grain boiled","created_at":"2021-08-04T22:47:01.000000Z","updated_at":"2021-08-04T22:47:01.000000Z","allergies":[]},{"id":8,"name":"Fried rice","description":"rice grain fried","created_at":"2021-08-04T22:47:10.000000Z","updated_at":"2021-08-04T22:47:10.000000Z","allergies":[]},{"id":9,"name":"Jollof rice","description":"rice grain jollof","created_at":"2021-08-04T22:47:22.000000Z","updated_at":"2021-08-04T22:47:22.000000Z","allergies":[]},{"id":10,"name":"Okra soup","description":"delicious soup made with the great okra plant","created_at":"2021-08-04T22:56:45.000000Z","updated_at":"2021-08-04T22:56:45.000000Z","allergies":[]},{"id":11,"name":"Eba","description":"delicious swallow","created_at":"2021-08-04T23:16:05.000000Z","updated_at":"2021-08-04T23:16:05.000000Z","allergies":[]},{"id":12,"name":"Roast Fish","description":"fish roasted with hot fire","created_at":"2021-08-05T14:16:49.000000Z","updated_at":"2021-08-05T14:16:49.000000Z","allergies":[]}]}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '57'
+          x-ratelimit-remaining: '53'
           access-control-allow-origin: '*'
         description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
         type: string
       data:
         name: data
@@ -1015,18 +398,22 @@ endpoints:
         description: '400, Service is down or an unexpected error occurred'
       -
         status: 200
-        content: '{"status":"success","message":"fetch users successful","data":[{"id":1,"name":"Brad Pitt","email":"pit@onubrooksapi.com","email_verified_at":null,"created_at":"2021-08-04T22:55:02.000000Z","updated_at":"2021-08-04T22:55:10.000000Z"}]}'
+        content: '{"status":"success","message":"fetch users successful","data":[{"id":1,"name":"Brad Pitt","email":"pit@onubrooksapi.com","email_verified_at":null,"created_at":"2021-08-04T22:55:02.000000Z","updated_at":"2021-08-04T22:55:10.000000Z","allergies":[{"id":3,"name":"SeaFood Allergy","description":"Allergic to SeaFood","created_at":"2021-08-04T22:51:36.000000Z","updated_at":"2021-08-04T22:51:36.000000Z","pivot":{"user_id":1,"allergy_id":3}},{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","created_at":"2021-08-04T22:51:03.000000Z","updated_at":"2021-08-04T22:51:03.000000Z","pivot":{"user_id":1,"allergy_id":1}}]},{"id":2,"name":"Harvey Specter","email":"harvey@onubrooksapi.com","email_verified_at":null,"created_at":"2021-08-05T09:01:54.000000Z","updated_at":"2021-08-05T09:01:54.000000Z","allergies":[{"id":2,"name":"ShellFish Allergy","description":"Allergic to ShellFish","created_at":"2021-08-04T22:51:18.000000Z","updated_at":"2021-08-04T22:51:18.000000Z","pivot":{"user_id":2,"allergy_id":2}}]},{"id":3,"name":"Idris Elba","email":"elba@onubrooks.io","email_verified_at":null,"created_at":"2021-08-05T14:16:50.000000Z","updated_at":"2021-08-05T14:16:50.000000Z","allergies":[]}]}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '56'
+          x-ratelimit-remaining: '51'
           access-control-allow-origin: '*'
         description: null
     responseFields:
       status:
         name: status
         description: 'The status of this API (`success` or `error`).'
+        type: string
+      message:
+        name: message
+        description: 'The service message based on the status of the call.'
         type: string
       data:
         name: data

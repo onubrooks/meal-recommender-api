@@ -7,9 +7,9 @@ use App\Http\Controllers\DataRelationshipController;
 use App\Http\Controllers\RecommenderController;
 use Illuminate\Support\Facades\Event;
 
-Event::listen('illuminate.query', function ($query) {
-    echo $query;
-});
+// Event::listen('illuminate.query', function ($query) {
+//     echo $query;
+// });
 /*
 |--------------------------------------------------------------------------
 | API Routes
