@@ -76,4 +76,4 @@ Full documentation can be found in the following links:
 
 ## About Onubrooks
 
-My name is Onuh Abah and you can find more of my work at: [onubrooks](https://github.com/onubrooks). Let's catch up on social media via [twitter](https://twitter.com/onubrooks) and [linkedin](https://www.linkedin.com/in/onu-abah)
+My name is Onuh Abah and you can find more of my work [here](https://github.com/onubrooks). Let's catch up on social media via [twitter](https://twitter.com/onubrooks) and [linkedin](https://www.linkedin.com/in/onu-abah)
