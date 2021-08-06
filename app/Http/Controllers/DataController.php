@@ -56,6 +56,7 @@ class DataController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'image_url' => ['nullable', 'string'],
         ]);
         $data = DataRepository::saveMeal($request->all());
 

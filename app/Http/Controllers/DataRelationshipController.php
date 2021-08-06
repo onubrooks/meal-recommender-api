@@ -56,9 +56,9 @@ class DataRelationshipController extends Controller
     {
         $request->validate([
             'meal_id' => ['required', 'integer'],
-            'items' => ['required', 'array'],
+            'items' => ['required', 'array', 'min:3'],
             'items.*.item_id' => ['required', 'integer'],
-            'items.*.type' => ['required', 'string'],
+            'items.*.type' => ['required', 'in:main,side'],
         ]);
         $data = DataRepository::saveMealItems($request->items, $request->meal_id);
 
