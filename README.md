@@ -118,7 +118,7 @@ Full documentation can be found in the following links:
 
 1. OpenAPI 2.0 specificaiton compliant API documentation: [Meal Recommender](https://meal-recommender-api.herokuapp.com/docs).
 2. Postman documentation with real request and response examples at: [Meal Recommender Collection](https://documenter.getpostman.com/view/4758703/Tzsik4Jg).
-3. Technical specification and data architecture design can be found [here](https://documenter.getpostman.com/view/4758703/Tzsik4Jg).
+3. Technical specification and data architecture design can be found [here](/Technical-Specification.md).
 
 ## About Onubrooks
 
