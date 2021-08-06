@@ -32,7 +32,7 @@ class DataRepository{
     {
         return Meal::updateOrCreate(
             ['name' => $payload['name']],
-            ['name' => $payload['name'], 'description' => $payload['description'], 'image_url' => $payload['image_url']]
+            ['name' => $payload['name'], 'description' => $payload['description'], 'image_url' => $payload['image_url'] ?? null]
         );
     }
 
