@@ -56,7 +56,8 @@ The same applies to the other entities.
 
 ### Relationship Management
 
-This group contains logic for querying and manipulating relationships between the entities. The 3 relationships are `meal-items`, `item-allergies` and `user-allerges`.
+This group contains logic for querying and manipulating relationships between the entities.
+The 3 relationships are `meal-items`, `item-allergies` and `user-allerges`.
 Every meal has 3 or more item (1 main plus 2 or more side items). This relationship is captured in the `meal_items` table.
 Every item has zero or more allergies. The `item_allergies` table holds this information.
 Every user has zero or more allergies. The `user_allergies` table captures this association.
