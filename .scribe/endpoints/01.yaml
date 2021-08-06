@@ -153,7 +153,7 @@ endpoints:
         description: '400, Service is down or an unexpected error occurred'
       -
         status: 200
-        content: '{"status":"success","message":"save user allergies successful","data":{"id":3,"name":"Idris Elba","email":"elba@onubrooks.io","email_verified_at":null,"created_at":"2021-08-05T14:16:50.000000Z","updated_at":"2021-08-05T14:19:28.000000Z","allergies":[{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","created_at":"2021-08-04T22:51:03.000000Z","updated_at":"2021-08-04T22:51:03.000000Z","pivot":{"user_id":3,"allergy_id":1}}]}}'
+        content: '{"status":"success","message":"save user allergies successful","data":{"id":3,"name":"Idris Elba","email":"elba@onubrooks.io","email_verified_at":null,"created_at":"2021-08-05T14:16:50.000000Z","updated_at":"2021-08-06T17:43:04.000000Z","allergies":[{"id":1,"name":"Nut Allergy","description":"Allergic to nuts","created_at":"2021-08-04T22:51:03.000000Z","updated_at":"2021-08-04T22:51:03.000000Z","pivot":{"user_id":3,"allergy_id":1}}]}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -205,7 +205,7 @@ endpoints:
         description: '400, Service is down or an unexpected error occurred'
       -
         status: 200
-        content: '{"status":"success","message":"fetch meal-items successful","data":{"id":1,"name":"Eba and Ewedu","description":"special eba from the western part of Nigeria","created_at":"2021-08-04T22:40:03.000000Z","updated_at":"2021-08-04T22:40:03.000000Z","items":[{"id":1,"name":"Ewedu","description":"Ewedu soup","pivot":{"meal_id":1,"item_id":1}},{"id":11,"name":"Eba","description":"delicious swallow","pivot":{"meal_id":1,"item_id":11}}]}}'
+        content: '{"status":"success","message":"fetch meal-items successful","data":{"id":1,"name":"Eba and Ewedu","description":"special eba from the western part of Nigeria","image_url":null,"created_at":"2021-08-04T22:40:03.000000Z","updated_at":"2021-08-04T22:40:03.000000Z","items":[{"id":1,"name":"Ewedu","description":"Ewedu soup","pivot":{"meal_id":1,"item_id":1}},{"id":11,"name":"Eba","description":"delicious swallow","pivot":{"meal_id":1,"item_id":11}}]}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
